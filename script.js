@@ -272,20 +272,41 @@ if(pinSubmit) {
         "click",
         () => {
 
+
             const input =
                 document.getElementById(
                     "pinInput"
                 );
 
 
+            const enteredPin =
+                input.value.trim();
+
+
+
+            // Don't check empty PINs
+            if(enteredPin === "") {
+
+                showToast(
+                    "Enter your PIN first",
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+
             const selectedUser =
                 profiles[selectedProfile];
+
 
 
             if(!selectedUser) {
 
                 showToast(
-                    "Profile error",
+                    "Profile not found",
                     "error"
                 );
 
@@ -294,29 +315,27 @@ if(pinSubmit) {
             }
 
 
+
             if(
-                input.value === selectedUser.pin
+                enteredPin === selectedUser.pin
             ) {
 
 
-                const modal =
-                    document.getElementById(
-                        "pinModal"
-                    );
-
-
-                if(modal) {
-
-                    modal.classList.add(
-                        "hidden"
-                    );
-
-                }
+                document
+                .getElementById(
+                    "pinModal"
+                )
+                .classList.add(
+                    "hidden"
+                );
 
 
                 login(
                     selectedProfile
                 );
+
+
+                input.value = "";
 
 
             }
@@ -327,6 +346,9 @@ if(pinSubmit) {
                     "Incorrect PIN",
                     "error"
                 );
+
+
+                input.value = "";
 
 
             }
