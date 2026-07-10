@@ -281,10 +281,25 @@ pinSubmit.addEventListener(
             );
 
 
-        if(
-            input.value ===
-            profiles[selectedProfile].pin
-        ) {
+        const selectedUser =
+    profiles[selectedProfile];
+
+
+if(!selectedUser) {
+
+    showToast(
+        "Profile error",
+        "error"
+    );
+
+    return;
+
+}
+
+
+if(
+    input.value === selectedUser.pin
+)
 
 
             document
