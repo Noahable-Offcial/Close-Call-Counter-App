@@ -256,7 +256,6 @@ function login(name) {
 }
 
 
-
 /* ==============================
    PIN CHECK
 ============================== */
@@ -269,61 +268,74 @@ const pinSubmit =
 
 if(pinSubmit) {
 
+    pinSubmit.addEventListener(
+        "click",
+        () => {
 
-pinSubmit.addEventListener(
-    "click",
-    () => {
-
-
-        const input =
-            document.getElementById(
-                "pinInput"
-            );
+            const input =
+                document.getElementById(
+                    "pinInput"
+                );
 
 
-        const selectedUser =
-    profiles[selectedProfile];
+            const selectedUser =
+                profiles[selectedProfile];
 
 
-if(!selectedUser) {
+            if(!selectedUser) {
 
-    showToast(
-        "Profile error",
-        "error"
-    );
+                showToast(
+                    "Profile error",
+                    "error"
+                );
 
-    return;
+                return;
 
-}
-
-
-if(
-    input.value === selectedUser.pin
-)
+            }
 
 
-            document
-            .getElementById(
-                "pinModal"
-            )
-            .classList.add(
-                "hidden"
-            );
+            if(
+                input.value === selectedUser.pin
+            ) {
 
 
-            login(
-                selectedProfile
-            );
+                const modal =
+                    document.getElementById(
+                        "pinModal"
+                    );
+
+
+                if(modal) {
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+
+                login(
+                    selectedProfile
+                );
+
+
+            }
+            else {
+
+
+                showToast(
+                    "Incorrect PIN",
+                    "error"
+                );
+
+
+            }
 
 
         }
+    );
 
-
-    }
-);
-
-
-} 
+}
 /* =====================================
    CLOSE CALL COUNTER
    Supabase Counters + Realtime
